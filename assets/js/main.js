@@ -55,9 +55,53 @@ const swiperPopular = new Swiper('.popular-swipper', {
 
 /*=============== SHOW SCROLL UP ===============*/ 
 
+const scrollUp = () =>{
+	const scrollUp = document.getElementById('scroll-up')
+    // When the scroll is higher than 350 viewport height, add the show-scroll class to the a tag with the scrollup class
+	this.scrollY >= 350 ? scrollUp.classList.add('show-scroll')
+						: scrollUp.classList.remove('show-scroll')
+}
+window.addEventListener('scroll', scrollUp)
+
 
 /*=============== SCROLL SE CTIONS ACTIVE LINK ===============*/
 
+const sections = document.querySelectorAll('section[id]')
+    
+const scrollActive = () =>{
+  	const scrollDown = window.scrollY
+
+	sections.forEach(current =>{
+		const sectionHeight = current.offsetHeight,
+			  sectionTop = current.offsetTop - 58,
+			  sectionId = current.getAttribute('id'),
+			  sectionsClass = document.querySelector('.nav-menu a[href*=' + sectionId + ']')
+
+		if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
+			sectionsClass.classList.add('active-link')
+		}else{
+			sectionsClass.classList.remove('active-link')
+		}                                                    
+	})
+}
+window.addEventListener('scroll', scrollActive)
+
 
 /*=============== SCROLL REVEAL ANIMATION ===============*/
+
+const sr = ScrollReveal({
+    origin: 'top',
+    distance: '60px',
+    duration: 2500,
+    delay : 300,
+    // reset: true
+});
+
+sr.reveal(`.home-data, .popular-container, .footer`);
+sr.reveal(`.home-board`, {delay: 700, distance: '100px', origin: 'right'});
+sr.reveal(`.home-pizza`, {delay: 1400, distance: '100px', origin: 'bottom', rotate: {z: -90}});
+sr.reveal(`.home-ingred`, {delay: '2000', interval:'100'});
+sr.reveal(`.about-data, .recipe-list, .contact-data`, {origin: 'right'});
+sr.reveal(`.about-img, .recipe-img, .contact-phone`, {origin: 'left'});
+sr.reveal(`.product-card`, {interval:'100'});
 
